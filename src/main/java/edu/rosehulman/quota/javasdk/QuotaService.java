@@ -1,15 +1,18 @@
 package edu.rosehulman.quota.javasdk;
 
 public class QuotaService {
+
+  private Partner partner;
+
+  private QuotaService(Partner partner) {
+    this.partner = partner;
+  }
+
   public static QuotaService getReference(String apiKey) {
-    return new QuotaService(); // TODO
+    return new QuotaService(new Partner(apiKey));
   }
 
-  public Product getProductByName(String productName) {
-    return new Product(); // TODO
-  }
-
-  public Product getProductByID(String productID) {
-    return new Product(); // TODO
+  public Product getProductById(String productId) {
+    return new Product(partner, productId);
   }
 }

@@ -1,11 +1,24 @@
 package edu.rosehulman.quota.javasdk;
 
 public class Product {
-  public boolean addUser(User user) {
-    return true; // TODO
+
+  private Partner partner;
+  private String productId;
+
+  Product(Partner partner, String productId) {
+    this.partner = partner;
+    this.productId = productId;
   }
 
-  public User getUserByID(String ID) {
-    return new User(); // TODO
+  String getProductId() {
+    return productId;
+  }
+
+  public boolean addUser(User user) {
+    return QuotaClient.getInstance().addUser(partner, this, user);
+  }
+
+  public User getUserById(String userId) {
+    return null; // TODO
   }
 }

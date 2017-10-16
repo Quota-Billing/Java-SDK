@@ -24,6 +24,6 @@ To start using our service visit [our quota-billing service](https://url_to_quot
 As an example you can add a new user to a product to keep track of their quotas and billing.
 ```java
 QuotaService quotaService = QuotaService.getReference(“API_KEY”);
-Product product = quotaService.getProductByName(“NAME”);  // or by Id
-product.addUser();
+Product product = quotaService.getProductById(“PRODUCT_ID”);  
+product.addUser(new User("USER_ID"));
 ```

@@ -13,7 +13,7 @@ class QuotaClient {
   boolean addUser(Partner partner, Product product, User user) {
     try {
       // TODO: Put Quota Server path in config and in here
-      HttpResponse<String> response = Unirest.post("partner/{partnerId}/product/{productId}/addUser/{userId}")
+      HttpResponse<String> response = Unirest.post("partner/{partnerId}/product/{productId}/user/{userId}")
           .routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId())
           .routeParam("userId", user.getUserId()).asString();
       return response.getStatus() == 200;

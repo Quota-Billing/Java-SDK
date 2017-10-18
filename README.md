@@ -13,9 +13,11 @@ To start using our service visit [our quota-billing service](https://url_to_quot
 </repositories>
 
 <dependency>
-  <groupId>edu.rosehulman.quota</groupId>
-  <artifactId>java-sdk</artifactId>
-  <version>0.0.1</version>
+  <dependency>
+    <groupId>com.github.Quota-Billing</groupId>
+      <artifactId>Java-SDK</artifactId>
+      <version>e337259444a71fb97c8a27a61b5ddebc25e115f1</version>
+    </dependency>
 </dependency>
 ```
 

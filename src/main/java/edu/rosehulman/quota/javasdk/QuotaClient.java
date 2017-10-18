@@ -16,8 +16,11 @@ class QuotaClient {
       HttpResponse<String> response = Unirest.post("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/addUser/{userId}")
           .routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId())
           .routeParam("userId", user.getUserId()).asString();
+      System.out.println(response.getStatus());
+      System.out.println(response.getBody());
       return response.getStatus() == 200;
     } catch (Exception e) {
+      e.printStackTrace();
       return false;
     }
   }

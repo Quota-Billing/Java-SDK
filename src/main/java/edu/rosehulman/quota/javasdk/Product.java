@@ -14,11 +14,11 @@ public class Product {
     return productId;
   }
 
-  public boolean addUser(User user) {
-    return QuotaClient.getInstance().addUser(partner, this, user);
+  public boolean addUser(String userId) {
+    return QuotaClient.getInstance().addUser(partner, this, userId);
   }
 
-  public User getUserById(String userId) {
-    return null; // TODO
+  public User getUser(String userId) {
+    return QuotaClient.getInstance().getUser(partner, this, userId);
   }
 }

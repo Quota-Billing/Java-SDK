@@ -10,15 +10,46 @@ class QuotaClient {
   private QuotaClient() {
   }
 
-  boolean addUser(Partner partner, Product product, User user) {
+  /**
+   * 
+   * @param partner
+   * @param product
+   * @param userId
+   * @return true if user added successfully, false otherwise
+   */
+  boolean addUser(Partner partner, Product product, String userId) {
     try {
       // TODO: Put Quota Server path in config and in here
-      HttpResponse<String> response = Unirest.post("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}")
+      HttpResponse<String> response = Unirest
+          .post("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}")
           .routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId())
-          .routeParam("userId", user.getUserId()).asString();
+          .routeParam("userId", userId).asString();
       return response.getStatus() == 200;
     } catch (Exception e) {
       return false;
+    }
+  }
+
+  /**
+   * 
+   * @param partner
+   * @param product
+   * @param userId
+   * @return User if exists, null otherwise
+   */
+  User getUser(Partner partner, Product product, String userId) {
+    try {
+      HttpResponse<String> response = Unirest
+          .get("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}")
+          .routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId())
+          .routeParam("userId", userId).asString();
+      if (response.getStatus() == 200) {
+        return new User(partner.getPartnerId(), product.getProductId(), userId);
+      } else {
+        return null;
+      }
+    } catch (Exception e) {
+      return null;
     }
   }
 

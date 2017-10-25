@@ -31,4 +31,22 @@ public class ProductTest {
     // Assert
     assertEquals(true, product.addUser("user_id"));
   }
+
+  @Test
+  public void removeUserTest() throws Exception {
+    // Mock non-static classes
+    Partner partner = Mockito.mock(Partner.class);
+
+    // Create object we are testing
+    Product product = new Product(partner, "the_product_id");
+
+    // Statically mock the QuotaClient because it is a singleton
+    mockStatic(QuotaClient.class);
+    QuotaClient quotaClient = Mockito.mock(QuotaClient.class);
+    when(QuotaClient.getInstance()).thenReturn(quotaClient);
+    when(quotaClient.removeUser(partner, product, "user_id")).thenReturn(true);
+
+    // Assert
+    assertEquals(true, product.removeUser("user_id"));
+  }
 }

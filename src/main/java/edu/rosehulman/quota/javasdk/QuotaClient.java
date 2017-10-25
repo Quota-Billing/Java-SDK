@@ -11,7 +11,7 @@ class QuotaClient {
   }
 
   /**
-   * 
+   *
    * @param partner
    * @param product
    * @param userId
@@ -31,7 +31,27 @@ class QuotaClient {
   }
 
   /**
-   * 
+   *
+   * @param partner
+   * @param product
+   * @param userId
+   * @return true if user removed successfully, false otherwise
+   */
+  boolean removeUser(Partner partner, Product product, String userId) {
+    try {
+      // TODO: Put Quota Server path in config and in here
+      HttpResponse<String> response = Unirest
+          .delete("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}")
+          .routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId())
+          .routeParam("userId", userId).asString();
+      return response.getStatus() == 200;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  /**
+   *
    * @param partner
    * @param product
    * @param userId

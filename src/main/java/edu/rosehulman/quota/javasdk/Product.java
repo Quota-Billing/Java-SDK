@@ -18,6 +18,10 @@ public class Product {
     return QuotaClient.getInstance().addUser(partner, this, userId);
   }
 
+  public boolean removeUser(String userId) {
+    return QuotaClient.getInstance().removeUser(partner, this, userId);
+  }
+
   public User getUser(String userId) {
     return QuotaClient.getInstance().getUser(partner, this, userId);
   }

@@ -35,3 +35,12 @@ QuotaService quotaService = QuotaService.getReference("API_KEY");
 Product product = quotaService.getProductById("PRODUCT_ID");
 product.removeUser("USER_ID");
 ```
+### Increment a User's Quota
+```java
+QuotaService quotaService = QuotaService.getReference("API_KEY");
+Product product = quotaService.getProductById("PRODUCT_ID");
+User user = product.getUser("USER_ID");
+Quota quota = user.getQuota("QUOTA_ID");
+IncrementQuotaStatus status = quota.increment();
+boolean success = (status == SUCCESS);
+```

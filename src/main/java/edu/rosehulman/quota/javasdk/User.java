@@ -2,13 +2,21 @@ package edu.rosehulman.quota.javasdk;
 
 public class User {
 
-  private String partnerId;
-  private String productId;
+  private Partner partner;
+  private Product product;
   private String userId;
 
-  public User(String partnerId, String productId, String userId) {
-    this.partnerId = partnerId;
-    this.productId = productId;
+  public User(Partner partner, Product product, String userId) {
+    this.partner = partner;
+    this.product = product;
     this.userId = userId;
+  }
+
+  String getUserId() {
+    return userId;
+  }
+
+  public Quota getQuota(String quotaId) {
+    return QuotaClient.getInstance().getQuota(partner, product, this, quotaId);
   }
 }

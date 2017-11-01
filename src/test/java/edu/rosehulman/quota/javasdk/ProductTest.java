@@ -11,7 +11,7 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ QuotaClient.class, Partner.class })
+@PrepareForTest({QuotaClient.class, Partner.class})
 public class ProductTest {
 
   @Test

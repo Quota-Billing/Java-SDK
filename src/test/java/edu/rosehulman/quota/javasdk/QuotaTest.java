@@ -13,6 +13,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
+import java.math.BigInteger;
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({QuotaClient.class, Partner.class, Product.class, Quota.class})
 public class QuotaTest {
@@ -25,7 +27,7 @@ public class QuotaTest {
     User user = Mockito.mock(User.class);
 
     // Create object we are testing
-    Quota quota = new Quota(partner, product, user, "the_quota_id");
+    Quota quota = new Quota(partner, product, user, "the_quota_id", new BigInteger("50"), new BigInteger("5"));
 
     // Statically mock the QuotaClient because it is a singleton
     mockStatic(QuotaClient.class);
@@ -45,7 +47,7 @@ public class QuotaTest {
     User user = Mockito.mock(User.class);
 
     // Create object we are testing
-    Quota quota = new Quota(partner, product, user, "the_quota_id");
+    Quota quota = new Quota(partner, product, user, "the_quota_id", new BigInteger("50"), new BigInteger("5"));
 
     // Statically mock the QuotaClient because it is a singleton
     mockStatic(QuotaClient.class);
@@ -65,7 +67,7 @@ public class QuotaTest {
     User user = Mockito.mock(User.class);
 
     // Create object we are testing
-    Quota quota = new Quota(partner, product, user, "the_quota_id");
+    Quota quota = new Quota(partner, product, user, "the_quota_id", new BigInteger("50"), new BigInteger("5"));
 
     // Statically mock the QuotaClient because it is a singleton
     mockStatic(QuotaClient.class);

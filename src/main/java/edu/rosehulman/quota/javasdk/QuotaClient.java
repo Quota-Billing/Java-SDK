@@ -1,11 +1,15 @@
 package edu.rosehulman.quota.javasdk;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 
 import static edu.rosehulman.quota.javasdk.IncrementQuotaStatus.LIMIT_REACHED_FAILURE;
 import static edu.rosehulman.quota.javasdk.IncrementQuotaStatus.OTHER_ERROR;
 import static edu.rosehulman.quota.javasdk.IncrementQuotaStatus.SUCCESS;
+
+import java.math.BigInteger;
 
 class QuotaClient {
 
@@ -90,7 +94,8 @@ class QuotaClient {
           .routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId())
           .routeParam("userId", user.getUserId()).routeParam("quotaId", quotaId).asString();
       if (response.getStatus() == 200) {
-        return new Quota(partner, product, user, quotaId);
+        JsonObject json = new JsonParser().parse(response.getBody()).getAsJsonObject();
+        return new Quota(partner, product, user, quotaId, new BigInteger(json.get("max").getAsString()), new BigInteger(json.get("value").getAsString()));
       } else {
         return null;
       }

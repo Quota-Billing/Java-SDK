@@ -5,9 +5,12 @@ class Partner {
   private String partnerId;
 
   Partner(String apiKey) {
-    // TODO: Make a call to Quota server to get a Partner for the apiKey and set the
-    // fields in this class
-    partnerId = "partnerId";
+    Partner p = QuotaClient.getPartner(apiKey);
+    this.partnerId = p.getPartnerId();
+  }
+
+  Partner(String apiKey, String partnerId) {
+    this.partnerId = partnerId;
   }
 
   String getPartnerId() {

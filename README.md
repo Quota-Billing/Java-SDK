@@ -2,7 +2,42 @@
 
 # Quota/Billing Java SDK
 
-To start using our service visit [our quota-billing service](https://url_to_quota_billing_README.com) to generate an API key and upload your configuration file. Then add to your pom.xml or build.gradle file:
+## Quickstart
+
+### Register
+Visit our [registration page](http://quota.csse.rose-hulman.edu:8084/upload) to register yourself with our service. You will find an example configuration file below. An API Key will be generated for you. Save this Key.
+
+#### sampleConfig.json
+```json
+{
+  "name" : "thePartnerName",
+  "password" : "workaroundPasswordForNow",
+  "products" : [
+    {
+      "id" : "theProductId",
+      "name" : "theProductName",
+      "quotas" : [
+        {
+          "id" : "theQuotaId",
+          "name" : "theQuotaName",
+          "type" : "numerical",
+          "tiers" : [
+            {
+              "id" : "theTierId",
+              "name" : "theTierName",
+              "max" : "5",
+              "price" : "10"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Maven Setup
+Add the following to your pom.xml to download our dependencies
 
 ```xml
 <repositories>
@@ -16,32 +51,42 @@ To start using our service visit [our quota-billing service](https://url_to_quot
   <dependency>
     <groupId>com.github.Quota-Billing</groupId>
       <artifactId>Java-SDK</artifactId>
-      <version>0.0.3</version>
+      <version>0.0.7</version>
     </dependency>
 </dependencies>
 ```
 
-## Example Usage
-### Add a User to a Product
-```java
-QuotaService quotaService = QuotaService.getReference("API_KEY");
-Product product = quotaService.getProductById("PRODUCT_ID");
-product.addUser("USER_ID");
-User user = product.getUser("USER_ID");
-```
-### Remove a User from a Product
-```java
-QuotaService quotaService = QuotaService.getReference("API_KEY");
-Product product = quotaService.getProductById("PRODUCT_ID");
-product.removeUser("USER_ID");
-```
-### Increment a User's Quota
-```java
-QuotaService quotaService = QuotaService.getReference("API_KEY");
-Product product = quotaService.getProductById("PRODUCT_ID");
-User user = product.getUser("USER_ID");
-Quota quota = user.getQuota("QUOTA_ID");
-IncrementQuotaStatus status = quota.increment();
-boolean success = (status == SUCCESS);
-```
+### Use the service
 
+```java
+// QuotaService exposes your products configured in the configuration json you have uploaded
+QuotaService quotaService = QuotaService.getReference("4721d305-ebe1-465b-9828-ea5b7533eabf");
+
+// Get a product by id
+Product product = quotaService.getProductById("theProductId");
+
+// Add a new user to a product
+// Returns true if user is successfully added
+product.addUser("thisIsAUserId");
+
+// Get a reference to the newly added user
+User user = product.getUser("thisIsAUserId");
+
+// Get a quota assigned to the user
+// Quotas are configured in the configuration json
+Quota quota = user.getQuota("theQuotaId");
+
+// The limit was set to 5 in the configuration json
+System.out.println(quota.increment()); // SUCCESS
+System.out.println(quota.increment()); // SUCCESS
+System.out.println(quota.increment()); // SUCCESS
+System.out.println(quota.increment()); // SUCCESS
+System.out.println(quota.increment()); // SUCCESS
+
+// The sixth with cause an error
+IncrementQuotaStatus incrementQuotaStatusFailure = quota.increment();
+System.out.println(incrementQuotaStatusFailure); // LIMIT_REACHED_FAILURE
+
+// Billing info is provided in this temporary manner
+System.out.println(incrementQuotaStatusFailure.getExtra()); // Contains billing info
+```

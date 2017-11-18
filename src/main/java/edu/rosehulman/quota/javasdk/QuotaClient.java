@@ -117,7 +117,9 @@ class QuotaClient {
     if (response.getStatus() == 200) {
       return SUCCESS;
     } else if (response.getStatus() == 403) {
-      return LIMIT_REACHED_FAILURE;
+      IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
+      limit.setExtra(response.getBody());
+      return limit;
     } else {
       return OTHER_ERROR;
     }

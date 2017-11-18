@@ -133,7 +133,7 @@ class QuotaClient {
       // TODO: Put Quota Server path in config and in here
       response = Unirest.get("http://quota.csse.rose-hulman.edu:8080/partnerApi/{apiKey}").routeParam("apiKey", apiKey).asString();
       if (response.getStatus() == 200) {
-        return new Partner(apiKey, response.getBody());
+        return new Partner(response.getBody());
       } else {
         return null;
       }

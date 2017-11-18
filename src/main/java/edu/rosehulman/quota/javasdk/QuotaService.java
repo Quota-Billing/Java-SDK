@@ -9,7 +9,7 @@ public class QuotaService {
   }
 
   public static QuotaService getReference(String apiKey) {
-    return new QuotaService(new Partner(apiKey));
+    return new QuotaService(Partner.fromApiKey(apiKey));
   }
 
   public Product getProductById(String productId) {

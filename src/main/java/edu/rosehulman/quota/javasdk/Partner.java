@@ -4,13 +4,12 @@ class Partner {
 
   private String partnerId;
 
-  Partner(String apiKey) {
-    Partner p = QuotaClient.getPartner(apiKey);
-    this.partnerId = p.getPartnerId();
+  Partner(String partnerId) {
+    this.partnerId = partnerId;
   }
 
-  Partner(String apiKey, String partnerId) {
-    this.partnerId = partnerId;
+  static Partner fromApiKey(String apiKey) {
+    return QuotaClient.getPartner(apiKey);
   }
 
   String getPartnerId() {

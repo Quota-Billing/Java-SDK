@@ -5,11 +5,9 @@ import com.google.gson.JsonParser;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 
-import static edu.rosehulman.quota.javasdk.IncrementQuotaStatus.LIMIT_REACHED_FAILURE;
-import static edu.rosehulman.quota.javasdk.IncrementQuotaStatus.OTHER_ERROR;
-import static edu.rosehulman.quota.javasdk.IncrementQuotaStatus.SUCCESS;
-
 import java.math.BigInteger;
+
+import static edu.rosehulman.quota.javasdk.IncrementQuotaStatus.*;
 
 class QuotaClient {
 
@@ -135,8 +133,7 @@ class QuotaClient {
       // TODO: Put Quota Server path in config and in here
       response = Unirest.get("http://quota.csse.rose-hulman.edu:8080/partnerApi/{apiKey}").routeParam("apiKey", apiKey).asString();
       if (response.getStatus() == 200) {
-        JsonObject json = new JsonParser().parse(response.getBody()).getAsJsonObject();
-        return new Partner(apiKey, json.get("partner_id").toString());
+        return new Partner(apiKey, response.getBody());
       } else {
         return null;
       }

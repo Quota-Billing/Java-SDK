@@ -10,7 +10,7 @@ Visit our [registration page](http://quota.csse.rose-hulman.edu:8084/upload) to 
 #### sampleConfig.json
 ```json
 {
-  "name" : "thePartnerName",
+  "name" : "thisIsThePartnerName123",
   "password" : "workaroundPasswordForNow",
   "products" : [
     {

@@ -32,7 +32,7 @@ class QuotaClient {
   boolean addUser(Partner partner, Product product, String userId) {
     try {
       // TODO: Put Quota Server path in config and in here
-      HttpResponse<String> response = Unirest.post("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}").routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId()).routeParam("userId", userId).asString();
+      HttpResponse<String> response = Unirest.post("http://quota.csse.rose-hulman.edu:8080/partnerApi/{apiKey}/product/{productId}/user/{userId}").routeParam("apiKey", partner.getApiKey()).routeParam("productId", product.getProductId()).routeParam("userId", userId).asString();
       return response.getStatus() == 200;
     } catch (Exception e) {
       return false;
@@ -48,7 +48,7 @@ class QuotaClient {
   boolean removeUser(Partner partner, Product product, String userId) {
     try {
       // TODO: Put Quota Server path in config and in here
-      HttpResponse<String> response = Unirest.delete("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}").routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId()).routeParam("userId", userId).asString();
+      HttpResponse<String> response = Unirest.delete("http://quota.csse.rose-hulman.edu:8080/partnerApi/{apiKey}/product/{productId}/user/{userId}").routeParam("apiKey", partner.getApiKey()).routeParam("productId", product.getProductId()).routeParam("userId", userId).asString();
       return response.getStatus() == 200;
     } catch (Exception e) {
       return false;
@@ -64,7 +64,7 @@ class QuotaClient {
   User getUser(Partner partner, Product product, String userId) {
     try {
       // TODO: Put Quota Server path in config and in here
-      HttpResponse<String> response = Unirest.get("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}").routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId()).routeParam("userId", userId).asString();
+      HttpResponse<String> response = Unirest.get("http://quota.csse.rose-hulman.edu:8080/partnerApi/{apiKey}/product/{productId}/user/{userId}").routeParam("apiKey", partner.getApiKey()).routeParam("productId", product.getProductId()).routeParam("userId", userId).asString();
       if (response.getStatus() == 200) {
         return new User(partner, product, userId);
       } else {
@@ -85,7 +85,7 @@ class QuotaClient {
   Quota getQuota(Partner partner, Product product, User user, String quotaId) {
     try {
       // TODO: Put Quota Server path in config and in here
-      HttpResponse<String> response = Unirest.get("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}/quota/{quotaId}").routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId()).routeParam("userId", user.getUserId()).routeParam("quotaId", quotaId).asString();
+      HttpResponse<String> response = Unirest.get("http://quota.csse.rose-hulman.edu:8080/partnerApi/{apiKey}/product/{productId}/user/{userId}/quota/{quotaId}").routeParam("apiKey", partner.getApiKey()).routeParam("productId", product.getProductId()).routeParam("userId", user.getUserId()).routeParam("quotaId", quotaId).asString();
       if (response.getStatus() == 200) {
         JsonObject json = new JsonParser().parse(response.getBody()).getAsJsonObject();
         return new Quota(partner, product, user, quotaId, new BigInteger(json.get("max").getAsString()), new BigInteger(json.get("value").getAsString()));
@@ -110,7 +110,7 @@ class QuotaClient {
       // TODO: Put Quota Server path in config and in here
       response = Unirest
           // POST with no body means increment by default amount
-          .post("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}/quota/{quotaId}").routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId()).routeParam("userId", user.getUserId()).routeParam("quotaId", quota.getQuotaId()).asString();
+          .post("http://quota.csse.rose-hulman.edu:8080/partnerApi/{apiKey}/product/{productId}/user/{userId}/quota/{quotaId}").routeParam("apiKey", partner.getApiKey()).routeParam("productId", product.getProductId()).routeParam("userId", user.getUserId()).routeParam("quotaId", quota.getQuotaId()).asString();
     } catch (Exception e) {
       return OTHER_ERROR;
     }
@@ -135,7 +135,7 @@ class QuotaClient {
       // TODO: Put Quota Server path in config and in here
       response = Unirest.get("http://quota.csse.rose-hulman.edu:8080/partnerApi/{apiKey}").routeParam("apiKey", apiKey).asString();
       if (response.getStatus() == 200) {
-        return new Partner(response.getBody());
+        return new Partner(apiKey);
       } else {
         return null;
       }

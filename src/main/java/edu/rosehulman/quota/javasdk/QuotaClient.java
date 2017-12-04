@@ -126,6 +126,35 @@ class QuotaClient {
   }
 
   /**
+   * @param partner
+   * @param product
+   * @param user
+   * @param quota
+   * @param count
+   * @return true if Quota incremented successfully, false otherwise
+   */
+  IncrementQuotaStatus incrementQuota(Partner partner, Product product, User user, Quota quota, BigInteger count) {
+    HttpResponse<String> response;
+    try {
+      // TODO: Put Quota Server path in config and in here
+      JsonObject body = new JsonObject();
+      body.addProperty("count", count.toString());
+      response = Unirest.post("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}/quota/{quotaId}").routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId()).routeParam("userId", user.getUserId()).routeParam("quotaId", quota.getQuotaId()).body(body).asString();
+    } catch (Exception e) {
+      return OTHER_ERROR;
+    }
+    if (response.getStatus() == 200) {
+      return SUCCESS;
+    } else if (response.getStatus() == 403) {
+      IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
+      limit.setExtra(response.getBody());
+      return limit;
+    } else {
+      return OTHER_ERROR;
+    }
+  }
+
+  /**
    * @param apiKey
    * @return Partner if exists, null otherwise
    */

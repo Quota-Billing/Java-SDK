@@ -25,6 +25,10 @@ public class Quota {
     return QuotaClient.getInstance().incrementQuota(partner, product, user, this);
   }
 
+  public IncrementQuotaStatus increment(BigInteger count) {
+    return QuotaClient.getInstance().incrementQuota(partner, product, user, this, count);
+  }
+
   String getQuotaId() {
     return quotaId;
   }

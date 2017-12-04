@@ -133,7 +133,7 @@ class QuotaClient {
    * @param count
    * @return true if Quota incremented successfully, false otherwise
    */
-  IncrementQuotaStatus incrementQuota(Partner partner, Product product, User user, Quota quota, BigInteger count) {
+  protected IncrementQuotaStatus incrementQuota(Partner partner, Product product, User user, Quota quota, BigInteger count) {
     HttpResponse<String> response;
     try {
       // TODO: Put Quota Server path in config and in here

@@ -10,19 +10,19 @@ public class Product {
     this.productId = productId;
   }
 
-  String getProductId() {
+  protected String getProductId() {
     return productId;
   }
 
-  public boolean addUser(String userId) {
+  protected boolean addUser(String userId) {
     return QuotaClient.getInstance().addUser(partner, this, userId);
   }
 
-  public boolean removeUser(String userId) {
+  protected boolean removeUser(String userId) {
     return QuotaClient.getInstance().removeUser(partner, this, userId);
   }
 
-  public User getUser(String userId) {
+  protected User getUser(String userId) {
     return QuotaClient.getInstance().getUser(partner, this, userId);
   }
 }

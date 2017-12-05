@@ -29,7 +29,7 @@ class QuotaClient {
    * @param userId
    * @return true if user added successfully, false otherwise
    */
-  boolean addUser(Partner partner, Product product, String userId) {
+  protected boolean addUser(Partner partner, Product product, String userId) {
     try {
       // TODO: Put Quota Server path in config and in here
       HttpResponse<String> response = Unirest.post("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}").routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId()).routeParam("userId", userId).asString();
@@ -45,7 +45,7 @@ class QuotaClient {
    * @param userId
    * @return true if user removed successfully, false otherwise
    */
-  boolean removeUser(Partner partner, Product product, String userId) {
+  protected boolean removeUser(Partner partner, Product product, String userId) {
     try {
       // TODO: Put Quota Server path in config and in here
       HttpResponse<String> response = Unirest.delete("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}").routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId()).routeParam("userId", userId).asString();
@@ -61,7 +61,7 @@ class QuotaClient {
    * @param userId
    * @return User if exists, null otherwise
    */
-  User getUser(Partner partner, Product product, String userId) {
+  protected User getUser(Partner partner, Product product, String userId) {
     try {
       // TODO: Put Quota Server path in config and in here
       HttpResponse<String> response = Unirest.get("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}").routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId()).routeParam("userId", userId).asString();
@@ -82,7 +82,7 @@ class QuotaClient {
    * @param quotaId
    * @return Quota if exists, null otherwise
    */
-  Quota getQuota(Partner partner, Product product, User user, String quotaId) {
+  protected Quota getQuota(Partner partner, Product product, User user, String quotaId) {
     try {
       // TODO: Put Quota Server path in config and in here
       HttpResponse<String> response = Unirest.get("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}/quota/{quotaId}").routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId()).routeParam("userId", user.getUserId()).routeParam("quotaId", quotaId).asString();
@@ -104,7 +104,7 @@ class QuotaClient {
    * @param quota
    * @return true if Quota incremented successfully, false otherwise
    */
-  IncrementQuotaStatus incrementQuota(Partner partner, Product product, User user, Quota quota) {
+  protected IncrementQuotaStatus incrementQuota(Partner partner, Product product, User user, Quota quota) {
     HttpResponse<String> response;
     try {
       // TODO: Put Quota Server path in config and in here
@@ -129,7 +129,7 @@ class QuotaClient {
    * @param apiKey
    * @return Partner if exists, null otherwise
    */
-  public static Partner getPartner(String apiKey) {
+  protected static Partner getPartner(String apiKey) {
     HttpResponse<String> response;
     try {
       // TODO: Put Quota Server path in config and in here

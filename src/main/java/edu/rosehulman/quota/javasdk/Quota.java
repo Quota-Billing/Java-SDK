@@ -12,7 +12,7 @@ public class Quota {
   private BigInteger value;
  
 
-  Quota(Partner partner, Product product, User user, String quotaId, BigInteger max, BigInteger value) {
+  protected Quota(Partner partner, Product product, User user, String quotaId, BigInteger max, BigInteger value) {
     this.partner = partner;
     this.product = product;
     this.user = user;
@@ -21,19 +21,19 @@ public class Quota {
     this.value = value;
   }
 
-  public IncrementQuotaStatus increment() {
+  protected IncrementQuotaStatus increment() {
     return QuotaClient.getInstance().incrementQuota(partner, product, user, this);
   }
 
-  String getQuotaId() {
+  protected String getQuotaId() {
     return quotaId;
   }
   
-  BigInteger getMax() {
+  protected BigInteger getMax() {
     return this.max;
   }
   
-  BigInteger getValue() {
+  protected BigInteger getValue() {
     return this.value;
   }
 }

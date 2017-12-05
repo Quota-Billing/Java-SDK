@@ -8,11 +8,11 @@ class Partner {
     this.partnerId = partnerId;
   }
 
-  static Partner fromApiKey(String apiKey) {
+  protected static Partner fromApiKey(String apiKey) {
     return QuotaClient.getPartner(apiKey);
   }
 
-  String getPartnerId() {
+  protected String getPartnerId() {
     return partnerId;
   }
 }

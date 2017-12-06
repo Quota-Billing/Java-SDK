@@ -1,18 +1,18 @@
 package edu.rosehulman.quota.javasdk;
 
-class Partner {
+public class Partner {
 
   private String apiKey;
 
-  Partner(String apiKey) {
+  public Partner(String apiKey) {
     this.apiKey = apiKey;
   }
 
-  static Partner fromApiKey(String apiKey) {
+  protected static Partner fromApiKey(String apiKey) {
     return QuotaClient.getPartner(apiKey);
   }
 
-  String getApiKey() {
+  public String getApiKey() {
     return this.apiKey;
   }
 }

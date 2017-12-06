@@ -1,10 +1,10 @@
 package edu.rosehulman.quota.javasdk;
 
-public class Partner {
+class Partner {
 
   private String apiKey;
 
-  public Partner(String apiKey) {
+  Partner(String apiKey) {
     this.apiKey = apiKey;
   }
 
@@ -12,7 +12,7 @@ public class Partner {
     return QuotaClient.getPartner(apiKey);
   }
 
-  public String getApiKey() {
+  String getApiKey() {
     return this.apiKey;
   }
 }

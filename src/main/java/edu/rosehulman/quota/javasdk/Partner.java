@@ -12,7 +12,7 @@ class Partner {
     return QuotaClient.getPartner(apiKey);
   }
 
-  String getApiKey() {
+  protected String getApiKey() {
     return this.apiKey;
   }
 }

@@ -139,7 +139,7 @@ class QuotaClient {
       // TODO: Put Quota Server path in config and in here
       JsonObject body = new JsonObject();
       body.addProperty("count", count.toString());
-      response = Unirest.post("http://quota.csse.rose-hulman.edu:8080/partner/{partnerId}/product/{productId}/user/{userId}/quota/{quotaId}").routeParam("partnerId", partner.getPartnerId()).routeParam("productId", product.getProductId()).routeParam("userId", user.getUserId()).routeParam("quotaId", quota.getQuotaId()).body(body).asString();
+      response = Unirest.post("http://quota.csse.rose-hulman.edu:8080/partnerApi/{apiKey}/product/{productId}/user/{userId}/quota/{quotaId}").routeParam("apiKey", partner.getApiKey()).routeParam("productId", product.getProductId()).routeParam("userId", user.getUserId()).routeParam("quotaId", quota.getQuotaId()).body(body).asString();
     } catch (Exception e) {
       return OTHER_ERROR;
     }

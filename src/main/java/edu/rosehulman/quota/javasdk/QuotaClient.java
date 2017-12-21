@@ -165,4 +165,25 @@ class QuotaClient {
       return null;
     }
   }
+
+  /**
+   * @param partner
+   * @param product
+   * @param user
+   * @param quotaId
+   * @param tierId
+   * @param rollover
+   * @return true if UserTier successfully set, false otherwise
+   */
+  protected boolean setUserTier(Partner partner, Product product, User user, String quotaId, String tierId, boolean rollover) {
+    HttpResponse<String> response;
+    try {
+      JsonObject body = new JsonObject();
+      body.addProperty("rollover", rollover);
+      response = Unirest.put(SystemConfig.getInstance().getQuotaUrl() + "/partnerApi/{apiKey}/product/{productId}/user/{userId}/quota/{quotaId}/tier/{tierId}").routeParam("apiKey", partner.getApiKey()).routeParam("productId", product.getProductId()).routeParam("userId", user.getUserId()).routeParam("quotaId", quotaId).routeParam("tierId", tierId).body(body).asString();
+      return response.getStatus() == 200;
+    } catch (Exception e) {
+      return false;
+    }
+  }
 }

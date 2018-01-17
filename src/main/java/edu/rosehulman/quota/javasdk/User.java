@@ -12,11 +12,11 @@ public class User {
     this.userId = userId;
   }
 
-  protected String getUserId() {
+  public String getUserId() {
     return userId;
   }
 
-  protected Quota getQuota(String quotaId) {
+  public Quota getQuota(String quotaId) {
     return QuotaClient.getInstance().getQuota(partner, product, this, quotaId);
   }
 }

@@ -21,7 +21,7 @@ public class Quota {
     this.value = value;
   }
 
-  protected IncrementQuotaStatus increment() {
+  public IncrementQuotaStatus increment() {
     return QuotaClient.getInstance().incrementQuota(partner, product, user, this);
   }
 
@@ -29,15 +29,15 @@ public class Quota {
     return QuotaClient.getInstance().incrementQuota(partner, product, user, this, count);
   }
 
-  protected String getQuotaId() {
+  public String getQuotaId() {
     return quotaId;
   }
-  
-  protected BigInteger getMax() {
+
+  public BigInteger getMax() {
     return this.max;
   }
-  
-  protected BigInteger getValue() {
+
+  public BigInteger getValue() {
     return this.value;
   }
 }

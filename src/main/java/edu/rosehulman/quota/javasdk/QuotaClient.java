@@ -31,7 +31,7 @@ class QuotaClient {
    */
   protected boolean addUser(Partner partner, Product product, String userId) {
     try {
-      HttpResponse<String> response = Unirest.post(SystemConfig.getInstance().getQuotaUrl() + "/partnerApi/{apiKey}/product/{productId}/user/{userId}").routeParam("apiKey", partner.getApiKey()).routeParam("productId", product.getProductId()).routeParam("userId", userId).asString();
+      HttpResponse<String> response = Unirest.post(SystemConfig.getInstance().getQuotaUrl() + "/partnerApi/{apiKey}/product/{productId}/user").routeParam("apiKey", partner.getApiKey()).routeParam("productId", product.getProductId()).body("{\"id\":\"" + userId + "\"}").asString();
       return response.getStatus() == 200;
     } catch (Exception e) {
       return false;

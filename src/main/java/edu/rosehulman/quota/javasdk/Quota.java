@@ -25,8 +25,16 @@ public class Quota {
     return QuotaClient.getInstance().incrementQuota(partner, product, user, this);
   }
 
-  public IncrementQuotaStatus increment(BigInteger count) {
+  protected IncrementQuotaStatus increment(BigInteger count) {
     return QuotaClient.getInstance().incrementQuota(partner, product, user, this, count);
+  }
+  
+  protected boolean setUserTier(String tierId) {
+    return QuotaClient.getInstance().setUserTier(partner, product, user, quotaId, tierId, false);
+  }
+
+  protected boolean setUserTier(String tierId, boolean rollover) {
+    return QuotaClient.getInstance().setUserTier(partner, product, user, quotaId, tierId, rollover);
   }
 
   public String getQuotaId() {

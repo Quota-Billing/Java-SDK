@@ -29,6 +29,14 @@ public class Quota {
     return QuotaClient.getInstance().incrementQuota(partner, product, user, this, count);
   }
 
+  public boolean setUserTier(String tierId) {
+    return QuotaClient.getInstance().setUserTier(partner, product, user, quotaId, tierId, false);
+  }
+
+  public boolean setUserTier(String tierId, boolean rollover) {
+    return QuotaClient.getInstance().setUserTier(partner, product, user, quotaId, tierId, rollover);
+  }
+
   public String getQuotaId() {
     return quotaId;
   }

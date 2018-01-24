@@ -2,6 +2,7 @@ package edu.rosehulman.quota.javasdk;
 
 public enum IncrementQuotaStatus {
   SUCCESS(""),
+  GRACE_PERIOD(""),
   LIMIT_REACHED_FAILURE(""),
   OTHER_ERROR("");
 

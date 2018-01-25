@@ -10,8 +10,6 @@ Visit our [registration page](http://quota.csse.rose-hulman.edu:8084/upload) to 
 #### sampleConfig.json
 ```json
 {
-  "name" : "thisIsThePartnerName123",
-  "password" : "workaroundPasswordForNow",
   "products" : [
     {
       "id" : "theProductId",
@@ -26,7 +24,8 @@ Visit our [registration page](http://quota.csse.rose-hulman.edu:8084/upload) to 
               "id" : "theTierId",
               "name" : "theTierName",
               "max" : "5",
-              "price" : "10"
+              "price" : "10",
+              "graceExtra" : "2"
             }
           ]
         }

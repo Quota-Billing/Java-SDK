@@ -110,7 +110,16 @@ class QuotaClient {
       return OTHER_ERROR;
     }
     if (response.getStatus() == 200) {
-      return SUCCESS;
+      if (response.getBody().isEmpty()) {
+        return SUCCESS;
+      } else {
+        JsonObject json = new JsonParser().parse(response.getBody()).getAsJsonObject();
+        boolean isGrace = json.get("isGrace").getAsBoolean();
+        if (isGrace) {
+          return GRACE_PERIOD;
+        }
+        return SUCCESS;
+      }
     } else if (response.getStatus() == 403) {
       IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
       limit.setExtra(response.getBody());
@@ -138,7 +147,16 @@ class QuotaClient {
       return OTHER_ERROR;
     }
     if (response.getStatus() == 200) {
-      return SUCCESS;
+      if (response.getBody().isEmpty()) {
+        return SUCCESS;
+      } else {
+        JsonObject json = new JsonParser().parse(response.getBody()).getAsJsonObject();
+        boolean isGrace = json.get("isGrace").getAsBoolean();
+        if (isGrace) {
+          return GRACE_PERIOD;
+        }
+        return SUCCESS;
+      }
     } else if (response.getStatus() == 403) {
       IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
       limit.setExtra(response.getBody());

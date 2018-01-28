@@ -121,9 +121,20 @@ class QuotaClient {
         return SUCCESS;
       }
     } else if (response.getStatus() == 403) {
-      IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
-      limit.setExtra(response.getBody());
-      return limit;
+      if (response.getBody().isEmpty()) {
+        IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
+        limit.setExtra(response.getBody());
+        return limit;
+      } else {
+        JsonObject json = new JsonParser().parse(response.getBody()).getAsJsonObject();
+        boolean tierNotSet = json.get("tierNotSet").getAsBoolean();
+        if (tierNotSet) {
+          return TIER_NOT_SET_ERROR;
+        }
+        IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
+        limit.setExtra(response.getBody());
+        return limit;
+      }
     } else {
       return OTHER_ERROR;
     }
@@ -158,9 +169,20 @@ class QuotaClient {
         return SUCCESS;
       }
     } else if (response.getStatus() == 403) {
-      IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
-      limit.setExtra(response.getBody());
-      return limit;
+      if (response.getBody().isEmpty()) {
+        IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
+        limit.setExtra(response.getBody());
+        return limit;
+      } else {
+        JsonObject json = new JsonParser().parse(response.getBody()).getAsJsonObject();
+        boolean tierNotSet = json.get("tierNotSet").getAsBoolean();
+        if (tierNotSet) {
+          return TIER_NOT_SET_ERROR;
+        }
+        IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
+        limit.setExtra(response.getBody());
+        return limit;
+      }
     } else {
       return OTHER_ERROR;
     }

@@ -5,7 +5,7 @@
 ## Quickstart
 
 ### Register
-Visit our [registration page](http://quota.csse.rose-hulman.edu:8084/upload) to register yourself with our service. You will find an example configuration file below. An API Key will be generated for you. Save this Key.
+Visit our [registration page](http://quota.csse.rose-hulman.edu:8084) to register yourself with our service. You will find an example configuration file below. An API Key will be generated for you. Save this Key.
 
 #### sampleConfig.json
 ```json
@@ -74,6 +74,9 @@ User user = product.getUser("thisIsAUserId");
 // Get a quota assigned to the user
 // Quotas are configured in the configuration json
 Quota quota = user.getQuota("theQuotaId");
+
+// Set the user's tier
+quota.setTier("theTierId");
 
 // The limit was set to 5 in the configuration json
 System.out.println(quota.increment()); // SUCCESS

@@ -10,7 +10,6 @@ public class Quota {
   private String quotaId;
   private BigInteger max;
   private BigInteger value;
- 
 
   protected Quota(Partner partner, Product product, User user, String quotaId, BigInteger max, BigInteger value) {
     this.partner = partner;
@@ -29,11 +28,11 @@ public class Quota {
     return QuotaClient.getInstance().incrementQuota(partner, product, user, this, count);
   }
 
-  public boolean setUserTier(String tierId) {
+  public boolean setTier(String tierId) {
     return QuotaClient.getInstance().setUserTier(partner, product, user, quotaId, tierId, false);
   }
 
-  public boolean setUserTier(String tierId, boolean rollover) {
+  public boolean setTier(String tierId, boolean rollover) {
     return QuotaClient.getInstance().setUserTier(partner, product, user, quotaId, tierId, rollover);
   }
 

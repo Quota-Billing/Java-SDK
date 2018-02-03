@@ -217,15 +217,6 @@ class QuotaClient {
    */
   protected boolean setUserTier(Partner partner, Product product, User user, String quotaId, String tierId, boolean rollover) {
     HttpResponse<String> response;
-
-    JsonObject body1 = new JsonObject();
-    body1.addProperty("rollover", rollover);
-    System.out.println("apiKey: " + partner.getApiKey() +
-            ", productId: " + product.getProductId() +
-            ", userId: " + user.getUserId() +
-            ", quotaId: " + quotaId +
-            ", tierId: " + tierId +
-            ", body: " + body1.toString());
     try {
       JsonObject body = new JsonObject();
       body.addProperty("rollover", rollover);

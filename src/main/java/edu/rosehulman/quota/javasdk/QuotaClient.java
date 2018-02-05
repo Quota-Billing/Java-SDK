@@ -126,15 +126,19 @@ class QuotaClient {
         limit.setExtra(response.getBody());
         return limit;
       } else {
-        System.out.println("body: " + response.getBody());
-        JsonObject json = new JsonParser().parse(response.getBody()).getAsJsonObject();
-        boolean tierNotSet = json.get("tierNotSet").getAsBoolean();
-        if (tierNotSet) {
-          return TIER_NOT_SET_ERROR;
+        try {
+          JsonObject json = new JsonParser().parse(response.getBody()).getAsJsonObject();
+          boolean tierNotSet = json.get("tierNotSet").getAsBoolean();
+          if (tierNotSet) {
+            return TIER_NOT_SET_ERROR;
+          }
+          IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
+          limit.setExtra(response.getBody());
+          return limit;
+        } catch (Exception e) {
+          // catch when not json
+          return LIMIT_REACHED_FAILURE;
         }
-        IncrementQuotaStatus limit = LIMIT_REACHED_FAILURE;
-        limit.setExtra(response.getBody());
-        return limit;
       }
     } else {
       return OTHER_ERROR;

@@ -10,6 +10,7 @@ Visit our [registration page](http://quota.csse.rose-hulman.edu:8084) to registe
 #### sampleConfig.json
 ```json
 {
+  "billingWebHook": "http://example.com",
   "products" : [
     {
       "id" : "theProductId",

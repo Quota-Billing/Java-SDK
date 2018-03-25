@@ -33,10 +33,15 @@ public class QuotaTest {
     mockStatic(QuotaClient.class);
     QuotaClient quotaClient = Mockito.mock(QuotaClient.class);
     when(QuotaClient.getInstance()).thenReturn(quotaClient);
+    
+    // Default increment
     when(quotaClient.incrementQuota(partner, product, user, quota)).thenReturn(SUCCESS);
-
-    // Assert
     assertEquals(SUCCESS, quota.increment());
+    
+    // Increment by specified amount
+    BigInteger incrementAmount = new BigInteger("10");
+    when(quotaClient.incrementQuota(partner, product, user, quota, incrementAmount)).thenReturn(SUCCESS);
+    assertEquals(SUCCESS, quota.increment(incrementAmount));
   }
 
   @Test
@@ -77,5 +82,49 @@ public class QuotaTest {
 
     // Assert
     assertEquals(LIMIT_REACHED_FAILURE, quota.increment());
+  }
+
+  @Test
+  public void setTierTest() throws Exception {
+    // Mock non-static classes
+    Partner partner = Mockito.mock(Partner.class);
+    Product product = Mockito.mock(Product.class);
+    User user = Mockito.mock(User.class);
+
+    // Create object we are testing
+    Quota quota = new Quota(partner, product, user, "the_quota_id", new BigInteger("50"), new BigInteger("5"));
+
+    // Statically mock the QuotaClient because it is a singleton
+    mockStatic(QuotaClient.class);
+    QuotaClient quotaClient = Mockito.mock(QuotaClient.class);
+    when(QuotaClient.getInstance()).thenReturn(quotaClient);
+    
+    when(quotaClient.setUserTier(partner, product, user, "the_quota_id", "tier_id", false)).thenReturn(true);
+    assertEquals(true, quota.setTier("tier_id"));
+
+    when(quotaClient.setUserTier(partner, product, user, "the_quota_id", "tier_id", false)).thenReturn(false);
+    assertEquals(false, quota.setTier("tier_id"));
+  }
+
+  @Test
+  public void setTierTestRollover() throws Exception {
+    // Mock non-static classes
+    Partner partner = Mockito.mock(Partner.class);
+    Product product = Mockito.mock(Product.class);
+    User user = Mockito.mock(User.class);
+
+    // Create object we are testing
+    Quota quota = new Quota(partner, product, user, "the_quota_id", new BigInteger("50"), new BigInteger("5"));
+
+    // Statically mock the QuotaClient because it is a singleton
+    mockStatic(QuotaClient.class);
+    QuotaClient quotaClient = Mockito.mock(QuotaClient.class);
+    when(QuotaClient.getInstance()).thenReturn(quotaClient);
+    
+    when(quotaClient.setUserTier(partner, product, user, "the_quota_id", "tier_id", true)).thenReturn(true);
+    assertEquals(true, quota.setTier("tier_id", true));
+
+    when(quotaClient.setUserTier(partner, product, user, "the_quota_id", "tier_id", true)).thenReturn(false);
+    assertEquals(false, quota.setTier("tier_id", true));
   }
 }
